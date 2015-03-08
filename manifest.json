@@ -1,0 +1,24 @@
+{
+  "manifest_version": 2,
+  "name": "Passw0rd1ess",
+  "short_name": "Passw0rd1ess",
+  "description": "",
+  "version": "0.0.1",
+  "minimum_chrome_version": "38",
+  "bluetooth": {
+     "uuids": [ "1105", "1106" ],
+     "socket": true
+   },
+  "icons": {
+    "16": "assets/icon_16.png",
+    "128": "assets/icon_128.png"
+  },
+  "externally_connectable": {
+     "matches": ["*://*/*"]
+   },
+  "app": {
+    "background": {
+      "scripts": ["background.js"]
+    }
+  }
+}
