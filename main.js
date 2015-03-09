@@ -1,6 +1,6 @@
 window.onload = function() {
   document.querySelector('#greeting').innerText =
-    'Listening to your bluetooth for a code for this site...';
+    'Manage your bluetooth connections...';
 
   var tab = document.getElementById("devices");
   var hdr = tab.insertRow(0);
@@ -27,6 +27,5 @@ window.onload = function() {
 
      }
   });
-
 };
 

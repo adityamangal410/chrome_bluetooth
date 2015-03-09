@@ -14,8 +14,14 @@
     "128": "assets/icon_128.png"
   },
   "externally_connectable": {
-     "matches": ["*://*/*"]
+     "matches": ["*://*.yahoo.com/*"]
    },
+  "content_scripts":  [
+    {
+      "matches": ["http://*.yahoo.com/*"],
+      "js": ["initiate_code.js"]
+    }
+  ],
   "app": {
     "background": {
       "scripts": ["background.js"]
