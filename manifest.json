@@ -18,7 +18,7 @@
    },
   "content_scripts":  [
     {
-      "matches": ["http://*.yahoo.com/*"],
+      "matches": ["https://www.yahoo.com"],
       "js": ["initiate_code.js"]
     }
   ],
