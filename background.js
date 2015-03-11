@@ -15,12 +15,18 @@ chrome.app.runtime.onLaunched.addListener(function(launchData) {
 });
 
 
-chrome.runtime.onMessage.addListener(
+/*chrome.runtime.onMessage.addListener(
   function(request, sender, sendResponse) {
     console.log(sender.tab ?
                 "from a content script:" + sender.tab.url :
                 "from the extension");
     if (request.greeting == "hello")
       sendResponse({farewell: "goodbye"});
-  });
+  });*/
 
+chrome.runtime.onMessageExternal.addListener(
+  function(request, sender, sendResponse) {
+    console.log("Response : " + response);
+    if (request.type == "code")
+       sendResponse({"code":"dummy_code"});
+  });

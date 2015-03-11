@@ -3,7 +3,7 @@
   "name": "Passw0rd1ess",
   "short_name": "Passw0rd1ess",
   "description": "",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "minimum_chrome_version": "38",
   "bluetooth": {
      "uuids": [ "1105", "1106" ],
@@ -16,12 +16,6 @@
   "externally_connectable": {
      "matches": ["*://*.yahoo.com/*"]
    },
-  "content_scripts":  [
-    {
-      "matches": ["https://www.yahoo.com"],
-      "js": ["initiate_code.js"]
-    }
-  ],
   "app": {
     "background": {
       "scripts": ["background.js"]

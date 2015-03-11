@@ -27,5 +27,19 @@ window.onload = function() {
 
      }
   });
+
+  chrome.runtime.onMessageExternal.addListener(
+  function(request, sender, sendResponse) {
+    console.log("request : " + request);
+    if (request.type == "code")
+       sendResponse({"code":"dummy_code"});
+  });
+  /*chrome.runtime.onMessage.addListener(
+  function(request, sender, sendResponse) {
+    console.log("request : " + request);
+    if (request.type == "code")
+       sendResponse({"code":"dummy_code"});
+  });*/
+  console.log("Registered Event Handler for an external event");
 };
 
