@@ -36,32 +36,6 @@ window.onload = function() {
        sendResponse({"code":"dummy_code"});
   });
 
-  // var uuid = '00001105-0000-1000-8000-00805f9b34fb';
-  // var uuid = 'A55D25C2-DA5F-40B2-B8D9-B940BF39795C';
-
-  var uuid = '00001101-0000-1000-8000-00805f9b34fb';
-  var onConnectedCallback = function() {
-    if (chrome.runtime.lastError) {
-      console.log("Connection failed: " + chrome.runtime.lastError.message);
-    } else {
-      // Profile implementation here.
-      console.log("Socket Successfully Created!");
-    }
-  };
-
-  var socketId;
-  // chrome.bluetoothSocket.create(function(createInfo) {
-  //   socketId = createInfo.socketId;
-  //   chrome.bluetoothSocket.connect(createInfo.socketId,
-  //     "74:45:8A:A0:AC:47", uuid, onConnectedCallback);
-  // });
-
-  chrome.bluetoothSocket.create(function(createInfo) {
-    socketId = createInfo.socketId;
-    chrome.bluetoothSocket.listenUsingRfcomm(createInfo.socketId,
-      uuid, onConnectedCallback);
-  });
-
   var onReceive = function(receiveInfo) {
     if (receiveInfo.socketId != socketId){
       return;
@@ -82,6 +56,55 @@ window.onload = function() {
       console.log("Hello Successful!");
     }
   };
+  // var uuid = '00001105-0000-1000-8000-00805f9b34fb';
+  var uuid = 'A55D25C2-DA5F-40B2-B8D9-B940BF39795C';
+
+  // var uuid = '00001101-0000-1000-8000-00805f9b34fb';
+  var onConnectedCallback = function() {
+    if (chrome.runtime.lastError) {
+      console.log("Connection failed: " + chrome.runtime.lastError.message);
+    } else {
+      // Profile implementation here.
+      console.log("Socket Successfully Created!");
+      chrome.bluetoothSocket.onAccept.addListener(function(acceptInfo) {
+        if (chrome.runtime.lastError) {
+          console.log("Connection failed: " + chrome.runtime.lastError.message);
+        } else {
+          // Profile implementation here.
+            console.log("Accept Successful!");
+            if (acceptInfo.socketId != socketId){
+            console.log('Sockets dont match!');
+            return;
+          }
+
+
+          // Say hello...
+          chrome.bluetoothSocket.send(acceptInfo.clientSocketId,
+            "data", onSendCallback);
+
+          // Accepted sockets are initially paused,
+          // set the onReceive listener first.
+          chrome.bluetoothSocket.onReceive.addListener(onReceive);
+          chrome.bluetoothSocket.setPaused(false);
+        }
+      });
+    }
+  };
+
+  var socketId;
+  // chrome.bluetoothSocket.create(function(createInfo) {
+  //   socketId = createInfo.socketId;
+  //   chrome.bluetoothSocket.connect(createInfo.socketId,
+  //     "74:45:8A:A0:AC:47", uuid, onConnectedCallback);
+  // });
+
+  chrome.bluetoothSocket.create(function(createInfo) {
+    socketId = createInfo.socketId;
+    chrome.bluetoothSocket.listenUsingRfcomm(createInfo.socketId,
+      uuid, onConnectedCallback);
+  });
+
+
 
   // chrome.bluetoothSocket.onReceive.addListener(function(receiveInfo) {
   //   if (receiveInfo.socketId != socketId){
@@ -95,28 +118,7 @@ window.onload = function() {
   //   }
   // });
 
-  chrome.bluetoothSocket.onAccept.addListener(function(acceptInfo) {
-    if (chrome.runtime.lastError) {
-      console.log("Connection failed: " + chrome.runtime.lastError.message);
-    } else {
-      // Profile implementation here.
-        console.log("Accept Successful!");
-        if (acceptInfo.socketId != socketId){
-        console.log('Sockets dont match!');
-        return;
-      }
 
-
-      // Say hello...
-      chrome.bluetoothSocket.send(acceptInfo.clientSocketId,
-        "data", onSendCallback);
-
-      // Accepted sockets are initially paused,
-      // set the onReceive listener first.
-      chrome.bluetoothSocket.onReceive.addListener(onReceive);
-      chrome.bluetoothSocket.setPaused(false);
-    }
-  });
 
   chrome.bluetoothSocket.onReceiveError.addListener(function(errorInfo) {
     // Cause is in errorInfo.error.
