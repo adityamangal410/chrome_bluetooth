@@ -6,16 +6,13 @@
   "version": "0.0.2",
   "minimum_chrome_version": "38",
   "bluetooth": {
-     "uuids": [ "1105", "1106" ],
+     "uuids": [ "1105", "1106", "1101", "A55D25C2-DA5F-40B2-B8D9-B940BF39795C" ],
      "socket": true
    },
   "icons": {
     "16": "assets/icon_16.png",
     "128": "assets/icon_128.png"
   },
-  "externally_connectable": {
-     "matches": ["*://*.yahoo.com/*"]
-   },
   "app": {
     "background": {
       "scripts": ["background.js"]

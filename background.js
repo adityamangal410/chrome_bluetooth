@@ -24,9 +24,12 @@ chrome.app.runtime.onLaunched.addListener(function(launchData) {
       sendResponse({farewell: "goodbye"});
   });*/
 
-chrome.runtime.onMessageExternal.addListener(
-  function(request, sender, sendResponse) {
-    console.log("Response : " + response);
-    if (request.type == "code")
-       sendResponse({"code":"dummy_code"});
-  });
+// chrome.runtime.onMessageExternal.addListener(
+//   function(request, sender, sendResponse) {
+//     console.log("Response : " + response);
+//     if (request.type == "code"){
+//       console.log("Message received in app background");
+//       sendResponse({"code":"dummy_code"});
+//       // chrome.runtime.sendMessage({"code":"dummy_code"});
+//     }
+//   });
