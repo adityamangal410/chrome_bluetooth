@@ -33,7 +33,7 @@ window.onload = function() {
     console.log("request : ");
     console.log(request);
     if (request.type == "code")
-       sendResponse({"code":"dummy_code"});
+       sendResponse({"code":"1234"});
   });
 
   var onReceive = function(receiveInfo) {
@@ -86,7 +86,15 @@ window.onload = function() {
           // set the onReceive listener first.
           chrome.bluetoothSocket.onReceive.addListener(onReceive);
           chrome.bluetoothSocket.setPaused(false);
+          chrome.bluetoothSocket.onReceiveError.addListener(function(errorInfo) {
+            // Cause is in errorInfo.error.
+            console.log(errorInfo.errorMessage);
+          });
         }
+      });
+      chrome.bluetoothSocket.onAcceptError.addListener(function(errorInfo) {
+        // Cause is in errorInfo.error.
+        console.log(errorInfo.errorMessage);
       });
     }
   };
@@ -117,13 +125,6 @@ window.onload = function() {
   //     console.log(String.fromCharCode.apply(null, new Uint16Array(receiveInfo.data)));
   //   }
   // });
-
-
-
-  chrome.bluetoothSocket.onReceiveError.addListener(function(errorInfo) {
-    // Cause is in errorInfo.error.
-    console.log(errorInfo.errorMessage);
-  });
 
   console.log("Registered Event Handler for an external event");
 };
